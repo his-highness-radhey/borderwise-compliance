@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-50 text-slate-900">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BorderWise : International Tourist Compliance & Restriction Matrix</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Plus Jakarta Sans, Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            paper: '#F8FAFC',
+            ink: '#0F172A',
+            brand: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              600: '#059669',
+              700: '#047857',
+              900: '#064e3b',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root, [data-theme="paper"] {
+      --bg-page: #F8FAFC;
+      --bg-card: #FFFFFF;
+      --bg-subtle: #F1F5F9;
+      --bg-input: #FFFFFF;
+      --text-main: #0F172A;
+      --text-muted: #64748B;
+      --border-main: #E2E8F0;
+      --grid-dot: #CBD5E1;
+      --illegal-bg: #FEF2F2;
+      --illegal-border: #FECACA;
+      --illegal-text: #DC2626;
+      --header-bg: rgba(255, 255, 255, 0.95);
+      --reality-bg: rgba(254, 243, 199, 0.65);
+      --reality-border: #FDE68A;
+      --reality-text: #78350F;
+    }
+
+    [data-theme="sepia"] {
+      --bg-page: #F3ECE0;
+      --bg-card: #FAF6EE;
+      --bg-subtle: #EAE1D3;
+      --bg-input: #FAF6EE;
+      --text-main: #231F1A;
+      --text-muted: #6E6456;
+      --border-main: #E2D7C3;
+      --grid-dot: #D8CABB;
+      --illegal-bg: #FDF2F2;
+      --illegal-border: #F87171;
+      --illegal-text: #B91C1C;
+      --header-bg: rgba(250, 246, 238, 0.95);
+      --reality-bg: #F5E8D3;
+      --reality-border: #E5D3B3;
+      --reality-text: #5D3A0A;
+    }
+
+    [data-theme="dark"] {
+      --bg-page: #0B0F17;
+      --bg-card: #131A26;
+      --bg-subtle: #1C2536;
+      --bg-input: #182232;
+      --text-main: #F1F5F9;
+      --text-muted: #94A3B8;
+      --border-main: #1E293B;
+      --grid-dot: #223046;
+      --illegal-bg: #450A0A;
+      --illegal-border: #7F1D1D;
+      --illegal-text: #FCA5A5;
+      --header-bg: rgba(19, 26, 38, 0.95);
+      --reality-bg: rgba(120, 53, 15, 0.25);
+      --reality-border: #78350F;
+      --reality-text: #FDE68A;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      background-image: radial-gradient(var(--grid-dot) 0.75px, transparent 0.75px);
+      background-size: 24px 24px;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    /* Adaptable theme utility overrides */
+    .theme-card {
+      background-color: var(--bg-card) !important;
+      border-color: var(--border-main) !important;
+      color: var(--text-main) !important;
+    }
+    .theme-subtle {
+      background-color: var(--bg-subtle) !important;
+      border-color: var(--border-main) !important;
+    }
+    .theme-header {
+      background-color: var(--header-bg) !important;
+      border-color: var(--border-main) !important;
+    }
+    .theme-input {
+      background-color: var(--bg-input) !important;
+      border-color: var(--border-main) !important;
+      color: var(--text-main) !important;
+    }
+    .theme-text-muted {
+      color: var(--text-muted) !important;
+    }
+    .theme-border {
+      border-color: var(--border-main) !important;
+    }
+    .theme-reality {
+      background-color: var(--reality-bg) !important;
+      border-color: var(--reality-border) !important;
+    }
+
+    /* Lowercase illegal text styling helper */
+    .text-illegal {
+      text-transform: none !important;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      color: var(--illegal-text);
+      background-color: var(--illegal-bg);
+      border: 1px solid var(--illegal-border);
+      padding: 0.125rem 0.375rem;
+      border-radius: 0.375rem;
+      display: inline-block;
+    }
+
+    /* Dynamic SVG / icon tone helper */
+    [data-theme="dark"] .theme-card-icon {
+      background-color: #1E293B !important;
+      color: #38BDF8 !important;
+    }
+    [data-theme="sepia"] .theme-card-icon {
+      background-color: #EAE1D3 !important;
+      color: #78350F !important;
+    }
+
+    /* Subtle custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-page);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--text-muted);
+      border-radius: 3px;
+    }
+    @media print {
+      .no-print {
+        display: none !important;
+      }
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+      }
+      .print-card {
+        border: 1px solid #CBD5E1 !important;
+        box-shadow: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="h-full font-sans antialiased flex flex-col min-h-screen">
+
+  <!-- TOP ANNOUNCEMENT / PLAN PREVIEW & THEME BAR -->
+  <div class="no-print bg-slate-900 text-slate-200 text-xs py-2 px-4 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center space-x-2">
+      <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-mono text-[11px] font-semibold">
+        <i class="fa-solid fa-layer-group text-[10px]"></i> SIMULATOR MODE
+      </span>
+      <span class="text-slate-300 hidden md:inline">Test deployment tiers and appearance modes.</span>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-3">
+      <!-- MULTI-THEME SEGMENTED PILL SWITCHER -->
+      <div class="flex items-center space-x-1 bg-slate-800 p-1 rounded-xl border border-slate-700">
+        <button onclick="setTheme('paper')" id="themeBtnPaper" title="Paper Light Mode" class="px-2.5 py-1 rounded-lg text-[11px] font-semibold transition flex items-center gap-1">
+          <span>☀️ Paper</span>
+        </button>
+        <button onclick="setTheme('sepia')" id="themeBtnSepia" title="Warm Dusk Sepia Mode" class="px-2.5 py-1 rounded-lg text-[11px] font-semibold transition flex items-center gap-1">
+          <span>📜 Warm Dusk</span>
+        </button>
+        
+      </div>
+
+      <!-- TIER PREVIEW TOGGLE -->
+      <div class="flex items-center space-x-1 bg-slate-800 p-1 rounded-xl border border-slate-700">
+        <button id="planToggleFree" onclick="setUserPlan('free')" class="px-2.5 py-1 rounded-lg text-[11px] font-semibold transition bg-slate-900 text-white shadow">
+          Free Tier
+        </button>
+        <button id="planTogglePlus" onclick="setUserPlan('plus')" class="px-2.5 py-1 rounded-lg text-[11px] font-semibold transition text-slate-400 hover:text-white flex items-center gap-1">
+          <i class="fa-solid fa-crown text-amber-400 text-[10px]"></i> Plus Tier
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN HEADER / NAVIGATION -->
+  <header class="no-print theme-header border-b backdrop-blur-md sticky top-0 z-40 shadow-sm transition-colors duration-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        
+        <!-- Clean Editorial Logo -->
+        <div class="flex items-center space-x-3 cursor-pointer" onclick="resetToHome()">
+          <div class="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center font-bold text-lg shadow-sm">
+            <i class="fa-solid fa-passport"></i>
+          </div>
+          <div>
+            <span class="text-xl font-extrabold tracking-tight font-sans">
+              BorderWise
+            </span>
+            <p class="text-[10px] theme-text-muted uppercase tracking-widest font-semibold font-mono">International Tourist Compliance Matrix</p>
+          </div>
+        </div>
+
+        <!-- Navigation & Actions -->
+        <div class="flex items-center space-x-3">
+          <!-- Active Tier Badge -->
+          <span id="activePlanBadge" class="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold theme-subtle border">
+            <span class="w-2 h-2 rounded-full bg-slate-400"></span> Free Plan
+          </span>
+
+          <button onclick="openUpgradeModal()" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-sm transition flex items-center gap-1.5">
+            <i class="fa-solid fa-crown text-amber-400"></i>
+            <span>View Tiers</span>
+          </button>
+
+          <button onclick="openAiModal()" class="hidden md:flex items-center space-x-2 text-xs font-semibold px-3.5 py-2 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 border border-emerald-500/30 transition">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            <span>Ask AI Assistant</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col space-y-8">
+    
+    <!-- HERO SECTION & ROUTE SELECTOR -->
+    <section class="no-print relative rounded-3xl theme-card border p-6 sm:p-10 shadow-sm overflow-hidden transition-colors duration-200">
+      <div class="max-w-3xl mx-auto text-center space-y-4">
+        
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full theme-subtle border text-xs font-medium">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          Official Pre-Flight Border & Customs Compliance Engine
+        </div>
+        
+        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+          Verify Strict Laws Before You Travel.
+        </h1>
+        <p class="theme-text-muted text-sm sm:text-base max-w-2xl mx-auto">
+          Everyday OTC medicines, local kitchen spices, and ordinary habits from home can carry severe fines or prison terms in strict destination countries.
+        </p>
+
+        <!-- SELECTOR CARDS CONTAINER -->
+        <div class="pt-6 grid grid-cols-1 md:grid-cols-12 gap-4 items-center text-left">
+          
+          <!-- Origin Country Dropdown -->
+          <div class="md:col-span-5 theme-subtle p-4 rounded-2xl border transition">
+            <label class="block text-xs font-bold theme-text-muted uppercase tracking-wider mb-2 flex items-center gap-2 font-mono">
+              <i class="fa-solid fa-house"></i> 1. Origin (Home Country)
+            </label>
+            <div class="relative">
+              <select id="originSelect" class="w-full theme-input border rounded-xl px-4 py-3 appearance-none focus:outline-none focus:ring-2 focus:ring-slate-900 text-sm font-semibold pr-10">
+                <option value="India" selected>🇮🇳 India (Featured)</option>
+                <option value="USA">🇺🇸 United States</option>
+                <option value="UK">🇬🇧 United Kingdom</option>
+                <option value="Australia">🇦🇺 Australia</option>
+                <option value="Canada">🇨🇦 Canada</option>
+                <option value="Germany">🇩🇪 Germany</option>
+                <option value="UAE">🇦🇪 United Arab Emirates</option>
+                <option value="Singapore">🇸🇬 Singapore</option>
+                <option value="Japan">🇯🇵 Japan</option>
+                <option value="Custom">🌐 Other Country...</option>
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 theme-text-muted">
+                <i class="fa-solid fa-chevron-down text-xs"></i>
+              </div>
+            </div>
+            <input type="text" id="customOriginInput" placeholder="Type home country name..." class="hidden w-full mt-2 theme-input border rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900">
+          </div>
+
+          <!-- Arrow Divider -->
+          <div class="md:col-span-2 flex justify-center py-1 md:py-0">
+            <div class="w-10 h-10 rounded-full theme-subtle border flex items-center justify-center font-bold shadow-sm">
+              <i class="fa-solid fa-arrow-right hidden md:block"></i>
+              <i class="fa-solid fa-arrow-down md:hidden"></i>
+            </div>
+          </div>
+
+          <!-- Destination Country Dropdown -->
+          <div class="md:col-span-5 theme-subtle p-4 rounded-2xl border transition">
+            <label class="block text-xs font-bold theme-text-muted uppercase tracking-wider mb-2 flex items-center gap-2 font-mono">
+              <i class="fa-solid fa-plane-arrival"></i> 2. Destination Country
+            </label>
+            <div class="relative">
+              <select id="destinationSelect" class="w-full theme-input border rounded-xl px-4 py-3 appearance-none focus:outline-none focus:ring-2 focus:ring-slate-900 text-sm font-semibold pr-10">
+                <option value="Singapore" selected>🇸🇬 Singapore (Strict Rules)</option>
+                <option value="UAE">🇦🇪 UAE / Dubai (Zero Tolerance)</option>
+                <option value="Japan">🇯🇵 Japan (OTC Medication Restrictions)</option>
+                <option value="Thailand">🇹🇭 Thailand (Lèse-majesté & Vape Ban)</option>
+                <option value="Saudi Arabia">🇸🇦 Saudi Arabia (Strict Customs)</option>
+                <option value="Indonesia">🇮🇩 Indonesia / Bali</option>
+                <option value="USA">🇺🇸 United States</option>
+                <option value="UK">🇬🇧 United Kingdom</option>
+                <option value="Custom">🌐 Other Destination...</option>
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 theme-text-muted">
+                <i class="fa-solid fa-chevron-down text-xs"></i>
+              </div>
+            </div>
+            <input type="text" id="customDestInput" placeholder="Type destination country..." class="hidden w-full mt-2 theme-input border rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900">
+          </div>
+
+        </div>
+
+        <!-- Quick Corridor Badges -->
+        <div class="pt-2 flex flex-wrap items-center justify-center gap-2 text-xs theme-text-muted">
+          <span class="font-semibold font-mono">POPULAR ROUTES:</span>
+          <button onclick="setQuickRoute('India', 'Singapore')" class="px-3 py-1 rounded-lg theme-subtle border font-medium hover:border-slate-400 transition">🇮🇳 India ➔ 🇸🇬 Singapore</button>
+          <button onclick="setQuickRoute('India', 'UAE')" class="px-3 py-1 rounded-lg theme-subtle border font-medium hover:border-slate-400 transition">🇮🇳 India ➔ 🇦🇪 UAE</button>
+          <button onclick="setQuickRoute('India', 'Japan')" class="px-3 py-1 rounded-lg theme-subtle border font-medium hover:border-slate-400 transition">🇮🇳 India ➔ 🇯🇵 Japan</button>
+          <button onclick="setQuickRoute('India', 'Thailand')" class="px-3 py-1 rounded-lg theme-subtle border font-medium hover:border-slate-400 transition">🇮🇳 India ➔ 🇹🇭 Thailand</button>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="pt-4">
+          <button id="checkRulesBtn" onclick="runComplianceCheck()" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-base shadow-lg transition transform active:scale-95 flex items-center justify-center gap-3 mx-auto">
+            <i class="fa-solid fa-shield-halved text-emerald-400"></i>
+            <span>Run Official Compliance Audit</span>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- LOADING STATE -->
+    <div id="loadingState" class="hidden p-12 text-center theme-card rounded-3xl border space-y-4 shadow-sm">
+      <div class="inline-block animate-spin text-4xl">
+        <i class="fa-solid fa-circle-notch"></i>
+      </div>
+      <h3 class="text-xl font-bold">Auditing Health Regulations & Customs Codes...</h3>
+      <p class="theme-text-muted text-sm max-w-md mx-auto" id="loadingText">
+        Cross-referencing border control databases and international penal codes...
+      </p>
+    </div>
+
+    <!-- REPORT RESULTS CONTAINER -->
+    <div id="reportContainer" class="space-y-6">
+
+      <!-- HEADER SUMMARY BAR -->
+      <div id="reportHeader" class="theme-card border rounded-2xl p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-sm transition-colors duration-200">
+        <div class="space-y-1">
+          <div class="flex items-center gap-2">
+            <span id="routeBadge" class="px-3 py-1 rounded-md theme-subtle border text-xs font-mono font-semibold uppercase tracking-wider">
+              Audit Active
+            </span>
+            <span id="strictnessBadge" class="px-3 py-1 rounded-md bg-red-500/10 text-red-600 dark:text-red-400 border border-red-500/30 text-xs font-semibold">
+              <i class="fa-solid fa-triangle-exclamation mr-1 text-red-500"></i> High Strictness Zone
+            </span>
+          </div>
+          <h2 id="reportTitle" class="text-2xl font-extrabold">
+            India ➔ Singapore Compliance Report
+          </h2>
+          <p id="reportSubtitle" class="text-xs theme-text-muted">
+            Official breakdown of banned substances, fine schedules, airport customs thresholds, and local laws.
+          </p>
+        </div>
+
+        <!-- ACTION UTILITIES -->
+        <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
+          <!-- Print Card Button -->
+          <button onclick="handlePrintExport()" class="px-3.5 py-2 rounded-xl theme-subtle border hover:border-slate-400 text-xs font-semibold transition flex items-center gap-1.5">
+            <i class="fa-solid fa-print"></i>
+            <span>Print Travel Pass</span>
+            <span id="printLockIcon" class="hidden text-[10px] text-amber-600 font-bold ml-1"><i class="fa-solid fa-lock"></i> PLUS</span>
+          </button>
+
+          <!-- Doctor Certificate Generator Button -->
+          <button onclick="handlePrescriptionTool()" class="px-3.5 py-2 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 text-xs font-semibold transition flex items-center gap-1.5">
+            <i class="fa-solid fa-file-medical"></i>
+            <span>Doctor Permit Generator</span>
+            <span id="prescLockIcon" class="hidden text-[10px] text-amber-600 font-bold ml-1"><i class="fa-solid fa-lock"></i> PLUS</span>
+          </button>
+
+          <!-- Layover Transit Checker Button -->
+          <button onclick="handleTransitTool()" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-sm transition flex items-center gap-1.5">
+            <i class="fa-solid fa-plane-circle-check text-emerald-400"></i>
+            <span>Transit Layover Check</span>
+            <span id="transitLockIcon" class="hidden text-[10px] text-amber-400 font-bold ml-1"><i class="fa-solid fa-lock"></i> PLUS</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ITEM SEARCH & FILTER BAR -->
+      <div class="no-print theme-card border rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm transition-colors duration-200">
+        <div class="relative w-full sm:w-96">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 theme-text-muted text-sm"></i>
+          <input type="text" id="itemSearchInput" oninput="filterItems()" placeholder="Search item (e.g. Vicks, Codeine, Vape, Poppy seeds)..." 
+            class="w-full theme-input border rounded-xl pl-10 pr-4 py-2.5 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-slate-900 font-medium">
+        </div>
+
+        <div class="flex items-center gap-1 overflow-x-auto w-full sm:w-auto pb-1 sm:pb-0 text-xs font-semibold">
+          <button onclick="setCategoryFilter('all')" class="cat-filter-btn px-3 py-2 rounded-lg bg-slate-900 text-white" data-cat="all">All Items</button>
+          <button onclick="setCategoryFilter('Meds')" class="cat-filter-btn px-3 py-2 rounded-lg theme-subtle hover:border-slate-400" data-cat="Meds">💊 Medications</button>
+          <button onclick="setCategoryFilter('Items')" class="cat-filter-btn px-3 py-2 rounded-lg theme-subtle hover:border-slate-400" data-cat="Items">🚫 Prohibited</button>
+          <button onclick="setCategoryFilter('Behavior')" class="cat-filter-btn px-3 py-2 rounded-lg theme-subtle hover:border-slate-400" data-cat="Behavior">🚮 Public Laws</button>
+          <button onclick="setCategoryFilter('Culture')" class="cat-filter-btn px-3 py-2 rounded-lg theme-subtle hover:border-slate-400" data-cat="Culture">👔 Culture</button>
+        </div>
+      </div>
+
+      <!-- REALITY CHECK CALLOUT BOX -->
+      <div id="realityCheckCallout" class="rounded-2xl theme-reality border p-6 space-y-3 relative transition-colors duration-200">
+        <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider font-mono">
+          <i class="fa-solid fa-bolt text-amber-600"></i> Home vs. Destination Reality Check
+        </div>
+        <h3 id="realityTitle" class="text-base sm:text-lg font-bold">
+          "Things completely normal at home in India that trigger arrests or massive fines in Singapore"
+        </h3>
+        <ul id="realityCheckList" class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm pt-1">
+          <!-- Dynamically populated -->
+        </ul>
+      </div>
+
+      <!-- CATEGORIZED CARDS CONTAINER -->
+      <div id="complianceGrid" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Rendered via JS -->
+      </div>
+
+      <!-- GEMINI AI ASSISTANT SECTION -->
+      <div class="no-print theme-card border rounded-2xl p-6 space-y-4 shadow-sm transition-colors duration-200">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold">
+              <i class="fa-solid fa-robot"></i>
+            </div>
+            <div>
+              <h3 class="text-base font-bold">Have a specific brand or unlisted medication?</h3>
+              <p class="text-xs theme-text-muted">Search with Gemini AI grounded live customs rules.</p>
+            </div>
+          </div>
+          
+          <div id="aiCounterBadge" class="text-[11px] font-mono font-semibold px-2.5 py-1 rounded-full theme-subtle border">
+            Free AI Queries Left: <span id="queriesRemaining">2</span>/2
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-2">
+          <input type="text" id="aiQueryInput" placeholder="e.g., Can I carry my prescription Dolo 650, 100ml vape juice, or herbal cough syrup?" 
+            class="flex-1 theme-input border rounded-xl px-4 py-3 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-slate-900 font-medium">
+          <button onclick="askGeminiCustomItem()" class="px-5 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 whitespace-nowrap shadow-sm">
+            <i class="fa-solid fa-paper-plane text-emerald-400"></i> Ask AI Assistant
+          </button>
+        </div>
+
+        <!-- AI Query Result Box -->
+        <div id="aiResponseBox" class="hidden p-4 rounded-xl theme-subtle border text-xs sm:text-sm space-y-2">
+          <div class="flex items-center justify-between font-bold text-xs border-b theme-border pb-2">
+            <span><i class="fa-solid fa-wand-magic-sparkles text-emerald-600 mr-1.5"></i> Gemini AI Grounded Verification Report:</span>
+            <span id="aiSourcesCount" class="theme-text-muted font-normal text-[11px] font-mono">Verified Search</span>
+          </div>
+          <div id="aiResponseText" class="leading-relaxed space-y-2"></div>
+          <div id="aiSourcesList" class="pt-2 text-[11px] theme-text-muted border-t theme-border"></div>
+        </div>
+      </div>
+
+      <!-- OFFICIAL LINKS -->
+      <div class="no-print theme-card border rounded-2xl p-6 space-y-4 shadow-sm transition-colors duration-200">
+        <h3 class="text-sm font-bold flex items-center gap-2">
+          <i class="fa-solid fa-building-columns"></i> Official Customs & Health Portals
+        </h3>
+        <p class="text-xs theme-text-muted">
+          Always cross-verify permits with official government portals before boarding your flight.
+        </p>
+        <div id="officialLinksGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pt-1">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+
+      <!-- DISCLAIMER -->
+      <div id="disclaimer" class="rounded-2xl theme-subtle border p-5 text-xs space-y-2 transition-colors duration-200">
+        <div class="flex items-center gap-2 font-bold">
+          <i class="fa-solid fa-shield-halved"></i> Legal & Advisory Disclaimer
+        </div>
+        <p class="theme-text-muted">
+          BorderWise is an informational database designed to increase tourist awareness of cross-border legal variances. Travel regulations, drug laws, and customs limits are subject to frequent changes without notice by sovereign foreign governments.
+        </p>
+        <p class="theme-text-muted">
+          This application does not constitute formal legal counsel or official customs clearance. Neither BorderWise nor its developers accept liability for confiscations, fines, arrests, or legal proceedings incurred while traveling. Always confirm your specific medical and item compliance directly with the embassy of your destination nation.
+        </p>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="no-print mt-auto border-t theme-header py-6 transition-colors duration-200">
+    <div class="max-w-7xl mx-auto px-4 text-center text-xs theme-text-muted flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <div class="w-6 h-6 rounded bg-slate-900 text-white flex items-center justify-center font-bold text-xs">BW</div>
+        <span>© 2026 BorderWise • Tourist Compliance & Restricted Laws</span>
+      </div>
+      <div class="flex items-center space-x-4">
+        <button onclick="openUpgradeModal()" class="text-amber-600 dark:text-amber-400 font-semibold hover:underline">
+          <i class="fa-solid fa-crown mr-1"></i> BorderWise Plus ($4.99)
+        </button>
+        <span class="opacity-40">|</span>
+        <span class="flex items-center gap-1"><i class="fa-solid fa-lock text-emerald-500"></i> Encrypted Session</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- UPGRADE / PLANS COMPARISON MODAL -->
+  <div id="upgradeModal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+    <div class="theme-card border rounded-3xl max-w-2xl w-full p-6 sm:p-8 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      
+      <div class="flex items-center justify-between border-b theme-border pb-4">
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold">
+            <i class="fa-solid fa-crown"></i>
+          </div>
+          <div>
+            <h3 class="text-lg font-extrabold">Choose Your Travel Tier</h3>
+            <p class="text-xs theme-text-muted">Upgrade to BorderWise Plus for complete airport preparation.</p>
+          </div>
+        </div>
+        <button onclick="closeUpgradeModal()" class="theme-text-muted hover:text-slate-900 dark:hover:text-white text-xl p-1">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- COMPARISON TABLE -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        
+        <!-- FREE TIER CARD -->
+        <div class="border theme-border rounded-2xl p-5 space-y-4 theme-subtle">
+          <div class="space-y-1">
+            <span class="text-xs font-mono font-bold uppercase theme-text-muted">Free Tier</span>
+            <div class="text-2xl font-extrabold">$0 <span class="text-xs font-normal theme-text-muted">/ forever</span></div>
+          </div>
+          <ul class="text-xs space-y-2.5">
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> Core Country Rules (India ➔ SG, UAE, JP)</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> Home vs. Destination Reality Checks</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> Keyword & Category Item Filter</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> 2 Free Gemini AI Item Queries</li>
+            <li class="flex items-center gap-2 theme-text-muted opacity-60"><i class="fa-solid fa-xmark"></i> Airport Declaration PDF Export</li>
+            <li class="flex items-center gap-2 theme-text-muted opacity-60"><i class="fa-solid fa-xmark"></i> Doctor Prescription Letter Generator</li>
+            <li class="flex items-center gap-2 theme-text-muted opacity-60"><i class="fa-solid fa-xmark"></i> Multi-Country Layover Transit Check</li>
+          </ul>
+          <button onclick="setUserPlan('free'); closeUpgradeModal();" class="w-full py-2.5 rounded-xl border theme-border theme-card font-bold text-xs hover:border-slate-400 transition">
+            Continue with Free Plan
+          </button>
+        </div>
+
+        <!-- BORDERWISE PLUS CARD -->
+        <div class="border-2 border-slate-900 dark:border-amber-500/50 rounded-2xl p-5 space-y-4 theme-card shadow-md relative overflow-hidden">
+          <div class="absolute top-0 right-0 bg-slate-900 text-amber-400 text-[10px] font-mono font-bold px-3 py-1 rounded-bl-xl uppercase tracking-wider">
+            RECOMMENDED FOR TRAVELERS
+          </div>
+          <div class="space-y-1">
+            <span class="text-xs font-mono font-bold uppercase text-amber-600 dark:text-amber-400">BorderWise Plus</span>
+            <div class="text-2xl font-extrabold">$4.99 <span class="text-xs font-normal theme-text-muted">/ single trip (₹199)</span></div>
+          </div>
+          <ul class="text-xs space-y-2.5 font-medium">
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> <strong>Everything in Free Plan</strong></li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> <strong>Unlimited AI Medicine & Brand Search</strong></li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> <strong>Printable Airport Declaration PDF Pass</strong></li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> <strong>Doctor Prescription Compliance Generator</strong></li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> <strong>Multi-Country Layover Transit Check</strong></li>
+          </ul>
+          <button onclick="setUserPlan('plus'); closeUpgradeModal();" class="w-full py-2.5 rounded-xl bg-slate-900 text-white font-bold text-xs hover:bg-slate-800 shadow transition flex items-center justify-center gap-1.5">
+            <i class="fa-solid fa-bolt text-amber-400"></i> Enable Plus Tier Preview Now
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- DOCTOR PRESCRIPTION COMPLIANCE LETTER GENERATOR MODAL -->
+  <div id="prescriptionModal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+    <div class="theme-card border rounded-3xl max-w-xl w-full p-6 space-y-4 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b theme-border pb-3">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+            <i class="fa-solid fa-file-medical"></i>
+          </div>
+          <h3 class="text-base font-bold">Doctor Prescription Cover Letter</h3>
+        </div>
+        <button onclick="closePrescriptionModal()" class="theme-text-muted hover:text-slate-900 dark:hover:text-white text-lg px-2">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <p class="text-xs theme-text-muted">
+        Generate an official medical declaration letter format to be signed by your registered physician to present at foreign airport customs.
+      </p>
+
+      <div class="space-y-3 text-xs font-medium">
+        <div>
+          <label class="block text-[11px] theme-text-muted font-mono font-bold mb-1">PATIENT FULL NAME</label>
+          <input type="text" id="prescPatientName" value="Rahul Sharma" class="w-full theme-input border rounded-lg p-2.5">
+        </div>
+        <div>
+          <label class="block text-[11px] theme-text-muted font-mono font-bold mb-1">LIST OF PRESCRIBED MEDICINES</label>
+          <input type="text" id="prescMedList" value="Alprazolam 0.5mg (10 tabs), Codeine Cough Syrup (100ml)" class="w-full theme-input border rounded-lg p-2.5">
+        </div>
+        <div>
+          <label class="block text-[11px] theme-text-muted font-mono font-bold mb-1">DESTINATION COUNTRY CUSTOMS</label>
+          <input type="text" id="prescDest" value="Singapore HSA Customs Authority" class="w-full theme-input border rounded-lg p-2.5">
+        </div>
+        <button onclick="generatePrescriptionPreview()" class="w-full py-3 rounded-xl bg-slate-900 text-white font-bold transition">
+          Generate Customs Ready Letter
+        </button>
+      </div>
+
+      <div id="prescOutput" class="hidden p-4 rounded-xl theme-subtle border text-xs font-mono space-y-2 whitespace-pre-wrap"></div>
+    </div>
+  </div>
+
+  <!-- LAYOVER TRANSIT CHECKER MODAL -->
+  <div id="transitModal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+    <div class="theme-card border rounded-3xl max-w-lg w-full p-6 space-y-4 shadow-2xl relative">
+      <div class="flex items-center justify-between border-b theme-border pb-3">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-8 h-8 rounded-lg theme-subtle flex items-center justify-center">
+            <i class="fa-solid fa-plane-circle-check"></i>
+          </div>
+          <h3 class="text-base font-bold">Layover Airport Transit Check</h3>
+        </div>
+        <button onclick="closeTransitModal()" class="theme-text-muted hover:text-slate-900 dark:hover:text-white text-lg px-2">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <p class="text-xs theme-text-muted">
+        Even if you do not leave the transit terminal, transit airports (e.g. Doha DOH, Dubai DXB, Bangkok BKK) re-screen carry-on bags under their national laws.
+      </p>
+
+      <div class="space-y-3">
+        <div>
+          <label class="block text-[11px] theme-text-muted font-mono font-bold mb-1">LAYOVER AIRPORT</label>
+          <select id="transitAirportSelect" class="w-full theme-input border rounded-xl p-2.5 text-xs font-semibold">
+            <option value="Doha (Hamad DOH)">🇶🇦 Doha Hamad Airport (Qatar)</option>
+            <option value="Dubai (DXB)">🇦🇪 Dubai Airport (UAE - Zero Narcotics)</option>
+            <option value="Bangkok (BKK)">🇹🇭 Bangkok Suvarnabhumi (Thailand - Vape Screening)</option>
+            <option value="Singapore (Changi SIN)">🇸🇬 Singapore Changi (Strict Liquid Screening)</option>
+          </select>
+        </div>
+        <button onclick="runTransitCheck()" class="w-full py-3 rounded-xl bg-slate-900 text-white font-bold text-xs transition">
+          Audit Layover Restrictions
+        </button>
+      </div>
+
+      <div id="transitResult" class="hidden p-4 rounded-xl theme-subtle border text-xs space-y-2">
+        <div id="transitResultContent"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GEMINI AI ASSISTANT MODAL -->
+  <div id="aiModal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+    <div class="theme-card border rounded-3xl max-w-lg w-full p-6 space-y-4 shadow-2xl relative">
+      <div class="flex items-center justify-between border-b theme-border pb-3">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+          </div>
+          <h3 class="text-base font-bold">Gemini Travel Compliance AI</h3>
+        </div>
+        <button onclick="closeAiModal()" class="theme-text-muted hover:text-slate-900 dark:hover:text-white text-lg px-2">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      
+      <p class="text-xs theme-text-muted">
+        Type any question regarding international travel rules, carrying specific medications, local laws, or customs procedures.
+      </p>
+
+      <div class="space-y-3">
+        <textarea id="modalAiTextarea" rows="4" placeholder="e.g. I am taking prescribed Sleeping Pills (Zolpidem) and CBD oil from India to Japan. What documentation do I need to prevent arrest?" class="w-full theme-input border rounded-xl p-3 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-slate-900 font-medium"></textarea>
+        <button onclick="runModalAiQuery()" class="w-full py-3 rounded-xl bg-slate-900 text-white font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2">
+          <i class="fa-solid fa-bolt text-emerald-400"></i> Generate Instant AI Safety Advice
+        </button>
+      </div>
+
+      <div id="modalAiResult" class="hidden p-4 rounded-xl theme-subtle border text-xs space-y-2 max-h-60 overflow-y-auto">
+        <p class="text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1">
+          <i class="fa-solid fa-circle-check"></i> Analysis Complete:
+        </p>
+        <div id="modalAiContent" class="leading-relaxed whitespace-pre-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT APPLICATION LOGIC -->
+  <script>
+    /* Theme State Management */
+    let currentTheme = localStorage.getItem('borderwise_theme') || 'paper';
+
+    function setTheme(theme) {
+      currentTheme = theme;
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('borderwise_theme', theme);
+      updateThemeUI(theme);
+    }
+
+    function updateThemeUI(theme) {
+      ['paper', 'sepia', 'dark'].forEach(t => {
+        const btn = document.getElementById(`themeBtn${t.charAt(0).toUpperCase() + t.slice(1)}`);
+        if (btn) {
+          if (t === theme) {
+            btn.className = "px-2.5 py-1 rounded-lg text-[11px] font-bold transition shadow-sm bg-slate-900 text-white dark:bg-emerald-500 dark:text-slate-950";
+          } else {
+            btn.className = "px-2.5 py-1 rounded-lg text-[11px] font-semibold transition text-slate-400 hover:text-white";
+          }
+        }
+      });
+    }
+
+    /* User Tier State ('free' or 'plus') */
+    let userPlan = 'free';
+    let aiQueryCount = 0;
+    const MAX_FREE_AI_QUERIES = 2;
+
+    /* COMPLIANCE DATABASE (Includes strict lowercase illegal tags) */
+    const COMPLIANCE_DATABASE = {
+      "India_Singapore": {
+        origin: "India",
+        destination: "Singapore",
+        strictness: "ZERO TOLERANCE / VERY HIGH",
+        realityCheckTitle: "Things completely normal in India that can get you fined thousands of dollars or arrested in Singapore",
+        realityCheckItems: [
+          "<strong>Carrying OTC Cough Syrup / Painkillers (Codeine, Tramadol):</strong> Common cough syrups in India contain codeine or pseudoephedrine. In Singapore, codeine requires prior HSA approval—unapproved entry can lead to drug charges.",
+          "<strong>Chewing Gum & Vapes:</strong> Chewing gum import is banned ($10,000 fine). E-cigarettes/vapes are strictly <span class='text-illegal'>illegal</span> to import, possess, or use ($2,000 fine per device).",
+          "<strong>Eating/Drinking on Trains & Buses:</strong> Eating a snack, drinking water, or sipping tea on MRT trains or stations incurs an immediate S$500 fine.",
+          "<strong>Feeding Pigeons & Spitting:</strong> Spitting in public or feeding wild pigeons carries an immediate S$500 to S$1,000 fine plus mandatory community service."
+        ],
+        categories: [
+          {
+            id: "Meds",
+            title: "Medications & Controlled Substances",
+            icon: "fa-prescription-bottle-medical",
+            items: [
+              {
+                name: "Codeine & Pseudoephedrine Cough/Cold Syrups",
+                severity: "HSA Approval Mandatory",
+                badgeColor: "bg-red-50 text-red-700 border-red-200",
+                originNorm: "Easily bought OTC or prescribed in India (Corex, Benadryl Codeine, Vicks Action 500).",
+                destLaw: "Classified as controlled substances. Carrying them without HSA permit is <span class='text-illegal'>illegal</span> under Singapore law.",
+                penalty: "Confiscation, heavy fine, or detention under Misuse of Drugs Act.",
+                advice: "Apply online at HSA portal with doctor certificate at least 10 days before flying."
+              },
+              {
+                name: "Sleeping Pills & Anti-Anxiety Meds (Zolpidem, Alprazolam)",
+                severity: "Permit Required",
+                badgeColor: "bg-amber-50 text-amber-800 border-amber-200",
+                originNorm: "Common prescription drugs in India for travel anxiety.",
+                destLaw: "Strict limits on quantities (max 1 month supply) with valid doctor's prescription translated to English.",
+                penalty: "Seizure and interrogation at Changi Airport customs.",
+                advice: "Keep in original labeled pharmacy packaging with doctor letter."
+              }
+            ]
+          },
+          {
+            id: "Items",
+            title: "Prohibited & Restricted Items",
+            icon: "fa-ban",
+            items: [
+              {
+                name: "E-Cigarettes, Vapes & E-Liquids",
+                severity: "Strictly Banned",
+                badgeColor: "bg-red-50 text-red-700 border-red-200",
+                originNorm: "Widely available in India.",
+                destLaw: "It is strictly <span class='text-illegal'>illegal</span> to import, purchase, possess, or use e-vapes in Singapore.",
+                penalty: "Fine up to S$2,000 for possession; up to S$10,000 / 6 months jail for import.",
+                advice: "Do NOT carry any vaping hardware, disposable pods, or liquids."
+              },
+              {
+                name: "Chewing Gum (Except Therapeutic/Nicotine)",
+                severity: "Import Banned",
+                badgeColor: "bg-amber-50 text-amber-800 border-amber-200",
+                originNorm: "Everyday mouth freshener in India.",
+                destLaw: "Importation of chewing gum is forbidden under Singapore customs regulation.",
+                penalty: "Up to S$10,000 fine for commercial import; confiscation for personal.",
+                advice: "Leave all gum packets at home."
+              }
+            ]
+          },
+          {
+            id: "Behavior",
+            title: "Public Behavior & Heavy Fines",
+            icon: "fa-gavel",
+            items: [
+              {
+                name: "Eating or Drinking on MRT Trains & Buses",
+                severity: "Immediate Fine S$500",
+                badgeColor: "bg-amber-50 text-amber-800 border-amber-200",
+                originNorm: "Eating snacks or drinking water on Indian Metro.",
+                destLaw: "Strict zero-food/drink policy on all public transport, stations, and platforms.",
+                penalty: "S$500 fine enforced by plainclothes inspectors.",
+                advice: "Consume all drinks/food before entering MRT gantries."
+              },
+              {
+                name: "Littering & Connecting to Unsecured Wi-Fi",
+                severity: "Heavy Fine & Criminal Act",
+                badgeColor: "bg-amber-50 text-amber-800 border-amber-200",
+                originNorm: "Connecting to open public Wi-Fi.",
+                destLaw: "Littering fine starts at S$1,000. Connecting to someone else's Wi-Fi without permission is <span class='text-illegal'>illegal</span> hacking under Computer Misuse Act.",
+                penalty: "Up to S$10,000 fine or jail for unauthorized Wi-Fi access.",
+                advice: "Always use public bins and official tourist SIM data."
+              }
+            ]
+          }
+        ],
+        officialLinks: [
+          { name: "Singapore HSA Medication Approval Portal", url: "https://www.hsa.gov.sg/personal-medication/overview" },
+          { name: "Singapore Customs Prohibited Items", url: "https://www.customs.gov.sg/businesses/importing-goods/controlled-and-prohibited-goods/" }
+        ]
+      },
+
+      "India_UAE": {
+        origin: "India",
+        destination: "UAE / Dubai",
+        strictness: "ZERO TOLERANCE / NARCOTICS LAWS",
+        realityCheckTitle: "Common Indian kitchen spices & OTC medicines that are classified as Illegal Narcotics in UAE",
+        realityCheckItems: [
+          "<strong>Poppy Seeds (Khus-Khus / Khas Khas):</strong> A common ingredient in Indian curry and sweets. In UAE, poppy seeds are classified as <span class='text-illegal'>illegal</span> narcotics under zero-tolerance drug laws!",
+          "<strong>Painkillers containing Tramadol or Codeine:</strong> Carrying them into UAE without Ministry of Health approval can lead to drug trafficking charges & prison.",
+          "<strong>Swearing or Offence Gestures:</strong> Using offensive hand gestures, swearing in public, or insulting someone on WhatsApp is <span class='text-illegal'>illegal</span> and carries AED 250,000 fine or deportation."
+        ],
+        categories: [
+          {
+            id: "Items",
+            title: "Prohibited & Restricted Items",
+            icon: "fa-ban",
+            items: [
+              {
+                name: "Poppy Seeds (Khus-Khus / Khas Khas)",
+                severity: "Zero Tolerance Narcotic",
+                badgeColor: "bg-red-50 text-red-700 border-red-200",
+                originNorm: "Standard spice in Indian curries & sweets.",
+                destLaw: "Strictly <span class='text-illegal'>illegal</span>. Considered an opium derivative under UAE Federal Drug Law.",
+                penalty: "Immediate arrest, prosecution, and severe jail sentence.",
+                advice: "NEVER pack poppy seeds in luggage, even ground into spices."
+              }
+            ]
+          },
+          {
+            id: "Meds",
+            title: "Medications & Controlled Substances",
+            icon: "fa-prescription-bottle-medical",
+            items: [
+              {
+                name: "Tramadol, Codeine, Diazepam",
+                severity: "MoHAP Approval Mandatory",
+                badgeColor: "bg-red-50 text-red-700 border-red-200",
+                originNorm: "Standard Indian pain relief & anxiety medicine.",
+                destLaw: "Strictly controlled narcotics. Unpermitted entry is <span class='text-illegal'>illegal</span>.",
+                penalty: "Arrest at airport, minimum 4 years imprisonment or immediate deportation.",
+                advice: "Obtain MoHAP permit online prior to departure."
+              }
+            ]
+          }
+        ],
+        officialLinks: [
+          { name: "UAE MoHAP Medication Import Portal", url: "https://mohap.gov.ae/en/services/issue-of-permit-to-import-medicines-for-personal-use" },
+          { name: "Dubai Customs Prohibited Items Guide", url: "https://www.dubaicustoms.gov.ae" }
+        ]
+      },
+
+      "India_Japan": {
+        origin: "India",
+        destination: "Japan",
+        strictness: "HIGH PHARMACEUTICAL RESTRICTION",
+        realityCheckTitle: "Common Indian cold inhalers & decongestants that are BANNED in Japan",
+        realityCheckItems: [
+          "<strong>Vicks Inhalers & Sudafed (Pseudoephedrine):</strong> Decongestants containing pseudoephedrine are strictly <span class='text-illegal'>illegal</span> under Japan's Anti-Stimulant Drugs Law.",
+          "<strong>Smoking on Streets:</strong> Smoking while walking in Tokyo or Kyoto is <span class='text-illegal'>illegal</span> outside designated glass smoking zones.",
+          "<strong>Tipping at Restaurants:</strong> Tipping waitstaff is considered offensive in Japanese culture."
+        ],
+        categories: [
+          {
+            id: "Meds",
+            title: "Medications & Controlled Substances",
+            icon: "fa-prescription-bottle-medical",
+            items: [
+              {
+                name: "Pseudoephedrine (Vicks Inhaler, Sudafed)",
+                severity: "Banned Stimulant",
+                badgeColor: "bg-red-50 text-red-700 border-red-200",
+                originNorm: "Everyday OTC nasal inhaler and cold tablet in India.",
+                destLaw: "Contains >10% pseudoephedrine. Classified as an <span class='text-illegal'>illegal</span> stimulant drug.",
+                penalty: "Detention at Narita/Haneda airport and deportation.",
+                advice: "Leave all Vicks nasal inhalers and pseudoephedrine cold pills at home."
+              }
+            ]
+          }
+        ],
+        officialLinks: [
+          { name: "Japan Ministry of Health Yakkan Shoumei Guide", url: "https://www.mhlw.go.jp/english/policy/health-medical/pharmaceuticals/01.html" }
+        ]
+      },
+
+      "India_Thailand": {
+        origin: "India",
+        destination: "Thailand",
+        strictness: "LÈSE-MAJESTÉ & VAPE BANS",
+        realityCheckTitle: "Things that carry severe prison time in Thailand",
+        realityCheckItems: [
+          "<strong>E-Cigarettes & Vapes:</strong> Vapes are strictly <span class='text-illegal'>illegal</span> in Thailand ($1,000+ fine or prison).",
+          "<strong>Insulting the Monarchy:</strong> Making jokes or negative comments about the Thai Royal Family is <span class='text-illegal'>illegal</span> and carries up to 15 years prison under Lèse-Majesté law."
+        ],
+        categories: [
+          {
+            id: "Items",
+            title: "Prohibited & Restricted Items",
+            icon: "fa-ban",
+            items: [
+              {
+                name: "E-Cigarettes & Vapes",
+                severity: "Strictly Illegal",
+                badgeColor: "bg-red-50 text-red-700 border-red-200",
+                originNorm: "Widely used by Indian tourists.",
+                destLaw: "Strictly <span class='text-illegal'>illegal</span> to import or possess vapes in Thailand.",
+                penalty: "Fine up to 30,000 THB and/or up to 10 years imprisonment.",
+                advice: "Do NOT carry any vaping equipment or pods."
+              }
+            ]
+          }
+        ],
+        officialLinks: [
+          { name: "Thailand Tourist Police Guidelines", url: "https://www.touristpolice.go.th" }
+        ]
+      }
+    };
+
+    let currentData = null;
+    let currentFilterCategory = "all";
+
+    document.addEventListener("DOMContentLoaded", () => {
+      setTheme(currentTheme);
+      setupSelectToggles();
+      runComplianceCheck();
+      updatePlanUI();
+    });
+
+    function setupSelectToggles() {
+      const originSel = document.getElementById("originSelect");
+      const destSel = document.getElementById("destinationSelect");
+
+      originSel.addEventListener("change", (e) => {
+        document.getElementById("customOriginInput").classList.toggle("hidden", e.target.value !== "Custom");
+      });
+
+      destSel.addEventListener("change", (e) => {
+        document.getElementById("customDestInput").classList.toggle("hidden", e.target.value !== "Custom");
+      });
+    }
+
+    /* TIER PREVIEW TOGGLE SYSTEM */
+    function setUserPlan(plan) {
+      userPlan = plan;
+      updatePlanUI();
+    }
+
+    function updatePlanUI() {
+      const freeBtn = document.getElementById("planToggleFree");
+      const plusBtn = document.getElementById("planTogglePlus");
+      const badge = document.getElementById("activePlanBadge");
+
+      const printLock = document.getElementById("printLockIcon");
+      const prescLock = document.getElementById("prescLockIcon");
+      const transitLock = document.getElementById("transitLockIcon");
+
+      if (userPlan === 'plus') {
+        freeBtn.className = "px-2.5 py-1 rounded text-[11px] font-semibold transition text-slate-400 hover:text-white";
+        plusBtn.className = "px-2.5 py-1 rounded text-[11px] font-semibold transition bg-amber-500 text-slate-950 font-bold shadow";
+        
+        badge.innerHTML = `<i class="fa-solid fa-crown text-amber-500 mr-1"></i> BorderWise Plus Active`;
+        badge.className = "hidden sm:inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-900 border border-amber-200";
+
+        printLock.classList.add("hidden");
+        prescLock.classList.add("hidden");
+        transitLock.classList.add("hidden");
+
+        document.getElementById("queriesRemaining").innerText = "∞";
+      } else {
+        freeBtn.className = "px-2.5 py-1 rounded text-[11px] font-semibold transition bg-slate-900 text-white shadow";
+        plusBtn.className = "px-2.5 py-1 rounded text-[11px] font-semibold transition text-slate-400 hover:text-white";
+        
+        badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-slate-400 mr-1.5"></span> Free Plan`;
+        badge.className = "hidden sm:inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200";
+
+        printLock.classList.remove("hidden");
+        prescLock.classList.remove("hidden");
+        transitLock.classList.remove("hidden");
+
+        document.getElementById("queriesRemaining").innerText = Math.max(0, MAX_FREE_AI_QUERIES - aiQueryCount);
+      }
+    }
+
+    function setQuickRoute(origin, destination) {
+      document.getElementById("originSelect").value = origin;
+      document.getElementById("destinationSelect").value = destination;
+      document.getElementById("customOriginInput").classList.add("hidden");
+      document.getElementById("customDestInput").classList.add("hidden");
+      runComplianceCheck();
+    }
+
+    function resetToHome() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* COMPLIANCE CHECK ENGINE */
+    async function runComplianceCheck() {
+      let origin = document.getElementById("originSelect").value;
+      let dest = document.getElementById("destinationSelect").value;
+
+      if (origin === "Custom") origin = document.getElementById("customOriginInput").value.trim() || "Home";
+      if (dest === "Custom") dest = document.getElementById("customDestInput").value.trim() || "Destination";
+
+      const routeKey = `${origin}_${dest}`;
+      const loadingState = document.getElementById("loadingState");
+      const reportContainer = document.getElementById("reportContainer");
+
+      document.getElementById("itemSearchInput").value = "";
+      currentFilterCategory = "all";
+      updateCategoryFilterButtons();
+
+      if (COMPLIANCE_DATABASE[routeKey]) {
+        currentData = COMPLIANCE_DATABASE[routeKey];
+        renderReport(currentData);
+      } else {
+        loadingState.classList.remove("hidden");
+        reportContainer.classList.add("hidden");
+        document.getElementById("loadingText").innerText = `Querying Gemini 3 AI for live customs laws (${origin} ➔ ${dest})...`;
+
+        try {
+          const aiData = await fetchAiComplianceReport(origin, dest);
+          currentData = aiData;
+          renderReport(currentData);
+        } catch (error) {
+          currentData = createFallbackReport(origin, dest);
+          renderReport(currentData);
+        } finally {
+          loadingState.classList.add("hidden");
+          reportContainer.classList.remove("hidden");
+        }
+      }
+    }
+
+    function renderReport(data) {
+      document.getElementById("reportTitle").innerText = `${data.origin} ➔ ${data.destination} Compliance Audit`;
+      document.getElementById("routeBadge").innerText = `Route: ${data.origin} to ${data.destination}`;
+      document.getElementById("strictnessBadge").innerHTML = `<i class="fa-solid fa-shield-halved mr-1 text-red-500"></i> ${data.strictness || 'HIGH COMPLIANCE'}`;
+
+      document.getElementById("realityTitle").innerText = data.realityCheckTitle || `Key Differences: ${data.origin} vs ${data.destination}`;
+      const realityList = document.getElementById("realityCheckList");
+      realityList.innerHTML = "";
+      
+      if (data.realityCheckItems && data.realityCheckItems.length > 0) {
+        data.realityCheckItems.forEach(item => {
+          const li = document.createElement("li");
+          li.className = "flex items-start space-x-2 bg-white p-3 rounded-xl border border-amber-200/80 shadow-sm";
+          li.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-amber-600 mt-0.5 text-xs flex-shrink-0"></i> <div>${item}</div>`;
+          realityList.appendChild(li);
+        });
+        document.getElementById("realityCheckCallout").classList.remove("hidden");
+      } else {
+        document.getElementById("realityCheckCallout").classList.add("hidden");
+      }
+
+      renderCategoryCards(data.categories);
+
+      const linksGrid = document.getElementById("officialLinksGrid");
+      linksGrid.innerHTML = "";
+      if (data.officialLinks && data.officialLinks.length > 0) {
+        data.officialLinks.forEach(link => {
+          const a = document.createElement("a");
+          a.href = link.url;
+          a.target = "_blank";
+          a.className = "p-3 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-xs text-slate-800 flex items-center justify-between group transition font-medium";
+          a.innerHTML = `<span class="truncate group-hover:text-slate-900">${link.name}</span> <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-slate-400"></i>`;
+          linksGrid.appendChild(a);
+        });
+      }
+    }
+
+    function renderCategoryCards(categories) {
+      const grid = document.getElementById("complianceGrid");
+      grid.innerHTML = "";
+
+      if (!categories || categories.length === 0) return;
+
+      const searchTerm = document.getElementById("itemSearchInput").value.toLowerCase().trim();
+
+      categories.forEach(cat => {
+        if (currentFilterCategory !== "all" && cat.id !== currentFilterCategory) return;
+
+        let filteredItems = cat.items;
+        if (searchTerm) {
+          filteredItems = filteredItems.filter(item => 
+            item.name.toLowerCase().includes(searchTerm) ||
+            item.originNorm.toLowerCase().includes(searchTerm) ||
+            item.destLaw.toLowerCase().includes(searchTerm) ||
+            item.advice.toLowerCase().includes(searchTerm)
+          );
+        }
+
+        if (filteredItems.length === 0) return;
+
+        const card = document.createElement("div");
+        card.className = "theme-card border rounded-2xl p-6 space-y-4 shadow-sm print-card transition-colors duration-200";
+        
+        let itemsHTML = "";
+        filteredItems.forEach(item => {
+          itemsHTML += `
+            <div class="p-4 rounded-xl theme-subtle border space-y-2.5">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <h4 class="text-sm font-bold flex items-center gap-2">
+                  <i class="fa-solid fa-circle-dot text-[10px]"></i> ${item.name}
+                </h4>
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold border ${item.badgeColor}">
+                  ${item.severity}
+                </span>
+              </div>
+              
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs pt-1">
+                <div class="p-2.5 rounded-lg theme-card border">
+                  <span class="text-[10px] theme-text-muted font-mono font-bold uppercase block mb-0.5">Home Norm (${currentData.origin}):</span>
+                  <span>${item.originNorm}</span>
+                </div>
+                <div class="p-2.5 rounded-lg theme-card border">
+                  <span class="text-[10px] text-amber-600 dark:text-amber-400 font-mono font-bold uppercase block mb-0.5">Destination Law (${currentData.destination}):</span>
+                  <span class="font-medium">${item.destLaw}</span>
+                </div>
+              </div>
+
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between text-xs pt-1 border-t theme-border gap-2">
+                <span class="text-red-600 dark:text-red-400 font-medium"><i class="fa-solid fa-gavel mr-1"></i> Penalty: ${item.penalty}</span>
+                <span class="text-emerald-600 dark:text-emerald-400 font-medium"><i class="fa-solid fa-lightbulb mr-1"></i> Action: ${item.advice}</span>
+              </div>
+            </div>
+          `;
+        });
+
+        card.innerHTML = `
+          <div class="flex items-center space-x-3 border-b theme-border pb-3">
+            <div class="w-9 h-9 rounded-xl theme-card-icon theme-subtle border flex items-center justify-center font-bold">
+              <i class="fa-solid ${cat.icon || 'fa-shield-halved'} text-sm"></i>
+            </div>
+            <div>
+              <h3 class="text-base font-bold">${cat.title}</h3>
+              <span class="text-xs theme-text-muted">${filteredItems.length} Key Rules Listed</span>
+            </div>
+          </div>
+          <div class="space-y-3">
+            ${itemsHTML}
+          </div>
+        `;
+
+        grid.appendChild(card);
+      });
+    }
+
+    function filterItems() {
+      if (currentData) renderCategoryCards(currentData.categories);
+    }
+
+    function setCategoryFilter(catId) {
+      currentFilterCategory = catId;
+      updateCategoryFilterButtons();
+      if (currentData) renderCategoryCards(currentData.categories);
+    }
+
+    function updateCategoryFilterButtons() {
+      document.querySelectorAll(".cat-filter-btn").forEach(btn => {
+        if (btn.dataset.cat === currentFilterCategory) {
+          btn.className = "cat-filter-btn px-3 py-2 rounded-lg bg-slate-900 text-white font-semibold";
+        } else {
+          btn.className = "cat-filter-btn px-3 py-2 rounded-lg theme-subtle hover:border-slate-400 font-semibold";
+        }
+      });
+    }
+
+    /* FEATURE ACTION HANDLERS (FREE VS PLUS CHECKS) */
+    function handlePrintExport() {
+      if (userPlan === 'free') {
+        openUpgradeModal();
+      } else {
+        window.print();
+      }
+    }
+
+    function handlePrescriptionTool() {
+      if (userPlan === 'free') {
+        openUpgradeModal();
+      } else {
+        document.getElementById("prescriptionModal").classList.remove("hidden");
+      }
+    }
+
+    function handleTransitTool() {
+      if (userPlan === 'free') {
+        openUpgradeModal();
+      } else {
+        document.getElementById("transitModal").classList.remove("hidden");
+      }
+    }
+
+    function generatePrescriptionPreview() {
+      const pName = document.getElementById("prescPatientName").value;
+      const mList = document.getElementById("prescMedList").value;
+      const dest = document.getElementById("prescDest").value;
+
+      const output = `OFFICIAL MEDICAL DECLARATION FOR INTERNATIONAL CUSTOMS
+
+Date: ${new Date().toLocaleDateString()}
+To: Border Control & Customs Inspection (${dest})
+
+Re: Medical Necessity Certificate for ${pName}
+
+This letter confirms that the patient ${pName} is under active medical care. The following medications are medically necessary for treatment during international travel:
+
+Prescribed Items:
+- ${mList}
+
+These medicines are prescribed solely for personal therapeutic use and are contained in original pharmacy packaging.
+
+Practitioner Signature: _______________________
+License / Reg No: MED-IN-98741
+Medical Board Seal: [STAMPED]`;
+
+      const box = document.getElementById("prescOutput");
+      box.innerText = output;
+      box.classList.remove("hidden");
+    }
+
+    function runTransitCheck() {
+      const airport = document.getElementById("transitAirportSelect").value;
+      const box = document.getElementById("transitResult");
+      const content = document.getElementById("transitResultContent");
+
+      content.innerHTML = `<strong>Transit Compliance Alert (${airport}):</strong><br>
+- Carry-on bags are re-screened at security checkpoints.<br>
+- Liquids >100ml bought before security will be confiscated unless sealed in STEB duty-free bags.<br>
+- E-cigarettes & vapes remain strictly confiscated at Dubai and Bangkok transit gates even if not exiting airport.`;
+      
+      box.classList.remove("hidden");
+    }
+
+    /* GEMINI AI LOOKUP ENGINE */
+    async function askGeminiCustomItem() {
+      const query = document.getElementById("aiQueryInput").value.trim();
+      if (!query) return;
+
+      if (userPlan === 'free' && aiQueryCount >= MAX_FREE_AI_QUERIES) {
+        openUpgradeModal();
+        return;
+      }
+
+      if (userPlan === 'free') {
+        aiQueryCount++;
+        updatePlanUI();
+      }
+
+      const responseBox = document.getElementById("aiResponseBox");
+      const responseText = document.getElementById("aiResponseText");
+      const sourcesList = document.getElementById("aiSourcesList");
+
+      responseBox.classList.remove("hidden");
+      responseText.innerHTML = `<div class="flex items-center space-x-2 text-slate-500 animate-pulse"><i class="fa-solid fa-circle-notch fa-spin"></i> <span>Querying Gemini 3 Flash live customs database...</span></div>`;
+      sourcesList.innerHTML = "";
+
+      const origin = currentData ? currentData.origin : "India";
+      const destination = currentData ? currentData.destination : "Singapore";
+
+      const apiKey = "";
+      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+      const systemPrompt = `You are an expert border control officer. Evaluate if a tourist traveling from ${origin} to ${destination} can safely bring or perform: "${query}". Always highlight if something is illegal in lowercase strictly as "illegal".`;
+
+      const payload = {
+        contents: [{ parts: [{ text: `Traveler Query: "${query}" from ${origin} to ${destination}. Is this allowed?` }] }],
+        tools: [{ "google_search": {} }],
+        systemInstruction: { parts: [{ text: systemPrompt }] }
+      };
+
+      try {
+        const response = await fetchWithRetry(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+        const candidate = result.candidates?.[0];
+
+        if (candidate && candidate.content?.parts?.[0]?.text) {
+          let text = candidate.content.parts[0].text;
+          text = text.replace(/illegal/gi, "<span class='text-illegal'>illegal</span>");
+          responseText.innerHTML = text.replace(/\n/g, '<br>');
+        }
+      } catch (err) {
+        responseText.innerText = "Error fetching response. Please try again.";
+      }
+    }
+
+    async function fetchAiComplianceReport(origin, destination) {
+      const apiKey = "";
+      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+      const userPrompt = `Generate travel compliance data for ${origin} to ${destination}. Return JSON strictly matching:
+{
+  "origin": "${origin}",
+  "destination": "${destination}",
+  "strictness": "HIGH COMPLIANCE",
+  "realityCheckTitle": "Normal habits in ${origin} restricted in ${destination}",
+  "realityCheckItems": ["Item 1", "Item 2"],
+  "categories": [
+    {
+      "id": "Meds",
+      "title": "Medications & Controlled Substances",
+      "icon": "fa-prescription-bottle-medical",
+      "items": [
+        {
+          "name": "Sample Drug",
+          "severity": "Permit Required",
+          "badgeColor": "bg-red-50 text-red-700 border-red-200",
+          "originNorm": "Common in ${origin}",
+          "destLaw": "Restricted or illegal in ${destination}",
+          "penalty": "Fine",
+          "advice": "Carry doctor permit"
+        }
+      ]
+    }
+  ],
+  "officialLinks": [{ "name": "${destination} Customs", "url": "https://www.google.com" }]
+}`;
+
+      const response = await fetchWithRetry(apiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: userPrompt }] }],
+          generationConfig: { responseMimeType: "application/json" }
+        })
+      });
+
+      const res = await response.json();
+      return JSON.parse(res.candidates[0].content.parts[0].text);
+    }
+
+    /* MODAL WINDOW CONTROLLERS */
+    function openUpgradeModal() { document.getElementById("upgradeModal").classList.remove("hidden"); }
+    function closeUpgradeModal() { document.getElementById("upgradeModal").classList.add("hidden"); }
+
+    function openAiModal() { document.getElementById("aiModal").classList.remove("hidden"); }
+    function closeAiModal() { document.getElementById("aiModal").classList.add("hidden"); }
+
+    function closePrescriptionModal() { document.getElementById("prescriptionModal").classList.add("hidden"); }
+    function closeTransitModal() { document.getElementById("transitModal").classList.add("hidden"); }
+
+    async function runModalAiQuery() {
+      const text = document.getElementById("modalAiTextarea").value.trim();
+      if (!text) return;
+      const content = document.getElementById("modalAiContent");
+      document.getElementById("modalAiResult").classList.remove("hidden");
+      content.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin text-slate-600"></i> Processing query...`;
+
+      const apiKey = "";
+      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+      try {
+        const response = await fetchWithRetry(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ contents: [{ parts: [{ text: text }] }] })
+        });
+        const resJson = await response.json();
+        let reply = resJson?.candidates?.[0]?.content?.parts?.[0]?.text || "No advice generated.";
+        reply = reply.replace(/illegal/gi, "<span class='text-illegal'>illegal</span>");
+        content.innerHTML = reply.replace(/\n/g, '<br>');
+      } catch (err) {
+        content.innerText = "Error running query.";
+      }
+    }
+
+    async function fetchWithRetry(url, options, retries = 3, delay = 1000) {
+      for (let i = 0; i < retries; i++) {
+        try {
+          const res = await fetch(url, options);
+          if (res.status === 429) {
+            await new Promise(r => setTimeout(r, delay * Math.pow(2, i)));
+            continue;
+          }
+          if (!res.ok) throw new Error(`HTTP Error ${res.status}`);
+          return res;
+        } catch (err) {
+          if (i === retries - 1) throw err;
+          await new Promise(r => setTimeout(r, delay * Math.pow(2, i)));
+        }
+      }
+    }
+
+    function createFallbackReport(origin, destination) {
+      return {
+        origin: origin,
+        destination: destination,
+        strictness: "HIGH ADVISORY",
+        realityCheckTitle: `Key Regulations When Traveling from ${origin} to ${destination}`,
+        realityCheckItems: [
+          `Carrying controlled medicines without English doctor prescription can lead to customs holds.`,
+          `Check destination customs limits on cash, alcohol, and local food products before departure.`
+        ],
+        categories: [
+          {
+            id: "Meds",
+            title: "Medications & Controlled Substances",
+            icon: "fa-prescription-bottle-medical",
+            items: [
+              {
+                name: "Prescription Medicines & Painkillers",
+                severity: "Customs Declaration Required",
+                badgeColor: "bg-amber-50 text-amber-800 border-amber-200",
+                originNorm: `Standard distribution in ${origin}.`,
+                destLaw: `Subject to health ministry verification in ${destination}.`,
+                penalty: "Confiscation or fine.",
+                advice: "Carry doctor certificate in original packaging."
+              }
+            ]
+          }
+        ],
+        officialLinks: [
+          { name: `${destination} Ministry of Foreign Affairs`, url: `https://www.google.com/search?q=${encodeURIComponent(destination + ' embassy customs rules')}` }
+        ]
+      };
+    }
+  </script>
+</body>
+</html>

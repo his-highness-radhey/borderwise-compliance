@@ -1,6 +1,6 @@
 # BorderWise : International Tourist Compliance & Restriction Matrix
 
-**BorderWise** is a pre-flight border, customs, and cultural rulebook web application that compares a traveler's home country against their destination. Everyday OTC medicines, kitchen spices, and normal habits at home can trigger heavy fines or detention abroad—BorderWise surfaces those differences before you fly.
+**BorderWise** is a pre-flight border, customs, and cultural rulebook web application that compares a traveler's home country against their destination. Everyday OTC medicines, kitchen spices, and normal habits at home can trigger heavy fines or detention abroad, BorderWise surfaces those differences before you fly.
 
 ## Key Features
 - **Origin vs. Destination Audit:** Compare country corridors (such as India → Singapore, UAE, Japan, and Thailand) with severity ratings and penalty breakdowns.
